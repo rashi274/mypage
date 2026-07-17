@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aishwarya Tiwari - Professional Data Analyst Portfolio. Highly skilled in SQL, Python, Tableau, ETL pipelines, and GenAI analytics.">
+    <meta name="author" content="Aishwarya Tiwari">
+    <title>Aishwarya Tiwari | Data Analyst Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <!-- Navigation Bar -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <span class="logo-accent">AT.</span>
+            </a>
+            
+            <nav class="nav-links" id="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            
+            <div class="nav-actions">
+                <!-- Theme Toggle Switch -->
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light theme">
+                    <i class="fa-solid fa-moon moon-icon"></i>
+                    <i class="fa-solid fa-sun sun-icon"></i>
+                </button>
+                
+                <!-- Mobile Navigation Toggle -->
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <span class="hero-badge reveal">Available for Opportunities</span>
+                <h1 class="hero-title reveal">
+                    Hi, I'm <span class="gradient-text">Aishwarya Tiwari</span>
+                </h1>
+                <h2 class="hero-subtitle reveal">Data Analyst &amp; Insight Architect</h2>
+                <p class="hero-description reveal">
+                    I translate complex datasets into actionable business intelligence. Specializing in Python, SQL, Tableau, and ETL automation, I design robust reporting systems and drive data-driven decision making.
+                </p>
+                <div class="hero-ctas reveal">
+                    <a href="#contact" class="btn btn-primary">Get In Touch <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="./resume_ats.pdf" target="_blank" class="btn btn-secondary">Download CV <i class="fa-solid fa-download"></i></a>
+                </div>
+                <div class="hero-socials reveal">
+                    <a href="mailto:aishwaryatiwari274@gmail.com" title="Email Aishwarya" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="https://linkedin.com/in/your-username" target="_blank" rel="noopener noreferrer" title="LinkedIn Profile" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" title="GitHub Portfolio" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+            <div class="hero-visual reveal">
+                <div class="image-wrapper">
+                    <img src="assets/data_analytics_hero.png" alt="Data Analytics and Visualization Graphic" class="hero-img">
+                    <div class="floating-badge badge-1">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>30% + Data Quality</span>
+                    </div>
+                    <div class="floating-badge badge-2">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>40% Reporting Automation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <a href="#about" aria-label="Scroll Down">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Introduction</span>
+                <h2 class="section-title">About Me</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-card glass reveal">
+                    <h3 class="card-title">Professional Summary</h3>
+                    <p class="about-text">
+                        Results-driven Data Analyst with experience in data cleaning, transformation, dashboard development, ETL automation, statistical analysis, and business reporting across freelance and corporate environments.
+                    </p>
+                    <p class="about-text">
+                        Skilled in Python, SQL, Excel, Tableau, Power BI, SAS, A/B testing, hypothesis testing, regression analysis, and data visualization. Proven ability to improve data quality, automate reporting, and deliver insights that support business growth and operational decision-making.
+                    </p>
+                </div>
+                <div class="stats-grid reveal">
+                    <div class="stat-card glass">
+                        <span class="stat-number gradient-text">30%</span>
+                        <span class="stat-label">Data Quality Improvement</span>
+                    </div>
+                    <div class="stat-card glass">
+                        <span class="stat-number gradient-text">40%</span>
+                        <span class="stat-label">Manual Effort Reduction</span>
+                    </div>
+                    <div class="stat-card glass">
+                        <span class="stat-number gradient-text">15%</span>
+                        <span class="stat-label">Conversion Rate Boost</span>
+                    </div>
+                    <div class="stat-card glass">
+                        <span class="stat-number gradient-text">10%</span>
+                        <span class="stat-label">Sales Performance Growth</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section" id="skills">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Expertise</span>
+                <h2 class="section-title">Core Skills</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="skills-grid">
+                <!-- Category 1 -->
+                <div class="skill-category-card glass reveal">
+                    <div class="category-header">
+                        <div class="category-icon-box"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                        <h3>Tools</h3>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-badge">Python</span>
+                        <span class="skill-badge">SQL</span>
+                        <span class="skill-badge">Tableau</span>
+                        <span class="skill-badge">Power BI</span>
+                        <span class="skill-badge">Pandas</span>
+                        <span class="skill-badge">NumPy</span>
+                        <span class="skill-badge">Microsoft Excel</span>
+                    </div>
+                </div>
+                
+                <!-- Category 2 -->
+                <div class="skill-category-card glass reveal">
+                    <div class="category-header">
+                        <div class="category-icon-box"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                        <h3>Analysis</h3>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-badge">Data Analysis</span>
+                        <span class="skill-badge">Exploratory Data Analysis</span>
+                        <span class="skill-badge">Statistical Analysis</span>
+                        <span class="skill-badge">A/B Testing</span>
+                        <span class="skill-badge">Hypothesis Testing</span>
+                        <span class="skill-badge">Regression Analysis</span>
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="skill-category-card glass reveal">
+                    <div class="category-header">
+                        <div class="category-icon-box"><i class="fa-solid fa-database"></i></div>
+                        <h3>Data Operations</h3>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-badge">Data Cleaning</span>
+                        <span class="skill-badge">Data Transformation</span>
+                        <span class="skill-badge">Data Validation</span>
+                        <span class="skill-badge">ETL Pipelines</span>
+                        <span class="skill-badge">Data Preprocessing</span>
+                        <span class="skill-badge">Data Quality</span>
+                    </div>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="skill-category-card glass reveal">
+                    <div class="category-header">
+                        <div class="category-icon-box"><i class="fa-solid fa-chart-simple"></i></div>
+                        <h3>Reporting</h3>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-badge">Dashboard Development</span>
+                        <span class="skill-badge">Data Visualization</span>
+                        <span class="skill-badge">Business Intelligence</span>
+                        <span class="skill-badge">Reporting Automation</span>
+                    </div>
+                </div>
+
+                <!-- Category 5 -->
+                <div class="skill-category-card glass reveal span-2">
+                    <div class="category-header">
+                        <div class="category-icon-box"><i class="fa-solid fa-bullseye"></i></div>
+                        <h3>Go-To-Market (GTM) Engineering</h3>
+                    </div>
+                    <div class="skills-list">
+                        <span class="skill-badge">Go-To-Market (GTM) Strategy</span>
+                        <span class="skill-badge">Customer Journey Tracking</span>
+                        <span class="skill-badge">CRM System Architecture</span>
+                        <span class="skill-badge">Revenue Operations (RevOps)</span>
+                        <span class="skill-badge">Marketing Automation Systems</span>
+                        <span class="skill-badge">API &amp; Webhook Integrations</span>
+                        <span class="skill-badge">Product-Led Growth (PLG) Tech Stack</span>
+                        <span class="skill-badge">Customer Data Platform (CDP) Setup</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience-section" id="experience">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Professional Path</span>
+                <h2 class="section-title">Work Experience</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="timeline">
+                <!-- Item 1 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Jan 2024 - Present</div>
+                    <div class="timeline-content glass">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="role-title">Freelance Data Analyst</h3>
+                                <h4 class="company-name">Self-Employed</h4>
+                            </div>
+                            <span class="location-badge"><i class="fa-solid fa-location-dot"></i> Hyderabad, India</span>
+                        </div>
+                        <ul class="timeline-bullets">
+                            <li>Developed interactive dashboards and reports for startups and SMEs using Tableau and Power BI, translating business needs into visual solutions.</li>
+                            <li>Cleaned, profiled, and validated large datasets to improve data accuracy, reporting quality, and data catalog governance.</li>
+                            <li>Built automated ETL pipelines using Python and SQL for streamlined reporting workflows and scheduled data updates.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Mar 2022 - Sep 2023</div>
+                    <div class="timeline-content glass">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="role-title">Test Engineer (Data Quality)</h3>
+                                <h4 class="company-name">Corporate Environment</h4>
+                            </div>
+                            <span class="location-badge"><i class="fa-solid fa-location-dot"></i> Indore, India</span>
+                        </div>
+                        <ul class="timeline-bullets">
+                            <li>Performed rigorous data cleaning, schema transformation, and validation processes that improved overall data quality by 30%.</li>
+                            <li>Conducted A/B testing and statistical analysis to evaluate product performance trends and suggest improvements that boosted conversion rates by 15%.</li>
+                            <li>Designed interactive, real-time Tableau dashboards to monitor data metrics and assist operations in strategic decision-making.</li>
+                            <li>Automated recurring data quality and ingestion reports using Python scripts and complex SQL queries, reducing manual reporting effort by 40%.</li>
+                            <li>Extracted, structured, labeled, and cleaned data from AI-generated datasets and email panels for analytics workflows.</li>
+                            <li>Collaborated with cross-functional teams in the United States and China to ensure data pipeline consistency and multi-region reporting accuracy.</li>
+                            <li>Utilized Microsoft Excel extensively for quick analysis, reconciliation tasks, and data tracking.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Sep 2021 - Mar 2022</div>
+                    <div class="timeline-content glass">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="role-title">Assistant System Engineer</h3>
+                                <h4 class="company-name">Technology Firm</h4>
+                            </div>
+                            <span class="location-badge"><i class="fa-solid fa-location-dot"></i> Gurgaon, Manesar, India</span>
+                        </div>
+                        <ul class="timeline-bullets">
+                            <li>Assisted with engineering data documentation, system health reporting, and issue tracking.</li>
+                            <li>Analyzed technical system issues, documented solutions, and improved technical support workflows.</li>
+                            <li>Coordinated with engineering teams to deliver status reports, data updates, and technical presentations.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Portfolio Showcase</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <!-- Project Filters -->
+            <div class="project-filters reveal">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="sql">SQL</button>
+                <button class="filter-btn" data-filter="tableau">Tableau / Excel</button>
+                <button class="filter-btn" data-filter="genai">GenAI / Strategy</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card glass reveal" data-tags="python tableau">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span class="project-icon"><i class="fa-solid fa-chart-pie"></i></span>
+                        </div>
+                        <div class="project-media-placeholder p-gradient-1">
+                            <span>Sales Data Analysis</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Tableau</span>
+                            <span class="tag">A/B Testing</span>
+                        </div>
+                        <h3 class="project-title">Sales Performance &amp; Trend Analysis</h3>
+                        <p class="project-description">
+                            Analyzed regional sales datasets using Python and Tableau to identify performance trends. Applied A/B testing methodologies and visualization techniques to recommend changes that drove a 10% increase in sales.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card glass reveal" data-tags="python sql">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span class="project-icon"><i class="fa-solid fa-heart-pulse"></i></span>
+                        </div>
+                        <div class="project-media-placeholder p-gradient-2">
+                            <span>Healthcare Prediction</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">Predictive Model</span>
+                        </div>
+                        <h3 class="project-title">Healthcare Data Prediction Model</h3>
+                        <p class="project-description">
+                            Built predictive models for early diagnosis using structured healthcare datasets. Queried, cleaned, and processed clinical data from SQL databases to support machine learning model development and analysis.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card glass reveal" data-tags="sql tableau">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span class="project-icon"><i class="fa-solid fa-warehouse"></i></span>
+                        </div>
+                        <div class="project-media-placeholder p-gradient-3">
+                            <span>Inventory System</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag">SQL</span>
+                            <span class="tag">Microsoft Excel</span>
+                            <span class="tag">Automation</span>
+                        </div>
+                        <h3 class="project-title">Inventory Management &amp; Optimization</h3>
+                        <p class="project-description">
+                            Designed an inventory tracking system using SQL and Excel to improve stock visibility and reduce stockouts by 20%. Automated reporting processes to improve inventory monitoring and overall operational efficiency.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card glass reveal" data-tags="genai python">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span class="project-icon"><i class="fa-solid fa-brain"></i></span>
+                        </div>
+                        <div class="project-media-placeholder p-gradient-4">
+                            <span>Tata GenAI Experience</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag">GenAI</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">EDA</span>
+                            <span class="tag">Strategy</span>
+                        </div>
+                        <h3 class="project-title">Tata GenAI Powered Data Analytics</h3>
+                        <p class="project-description">
+                            Simulated strategy development for Tata iQ's Financial Services. Conducted EDA with GenAI tools, proposed a delinquency risk predictive framework, and designed an automated, regulatory-compliant collection strategy.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Certifications Section -->
+    <section class="education-section" id="education">
+        <div class="container">
+            <div class="edu-cert-grid">
+                <!-- Education -->
+                <div class="education-box reveal">
+                    <div class="section-header align-left">
+                        <span class="section-subtitle">Academic Profile</span>
+                        <h2 class="section-title">Education</h2>
+                        <div class="section-divider"></div>
+                    </div>
+                    <div class="education-card glass">
+                        <div class="edu-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <div class="edu-details">
+                            <span class="edu-year">2015 - 2019</span>
+                            <h3 class="edu-degree">Bachelor of Engineering</h3>
+                            <h4 class="edu-institute">Samrat Ashok Technological Institute</h4>
+                            <p class="edu-text">Completed engineering degree with coursework focusing on logic, computing systems, analytics, and problem-solving methodologies.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="certifications-box reveal">
+                    <div class="section-header align-left">
+                        <span class="section-subtitle">Skills Validation</span>
+                        <h2 class="section-title">Selected Certifications</h2>
+                        <div class="section-divider"></div>
+                    </div>
+                    <div class="cert-grid">
+                        <div class="cert-card glass">
+                            <i class="fa-solid fa-certificate cert-icon"></i>
+                            <div>
+                                <h4>Google Data Analytics Specialization</h4>
+                                <span>Coursera</span>
+                            </div>
+                        </div>
+                        <div class="cert-card glass">
+                            <i class="fa-solid fa-certificate cert-icon"></i>
+                            <div>
+                                <h4>ChatGPT Advanced Data Analysis</h4>
+                                <span>AI &amp; Data Operations</span>
+                            </div>
+                        </div>
+                        <div class="cert-card glass">
+                            <i class="fa-solid fa-certificate cert-icon"></i>
+                            <div>
+                                <h4>Generative AI Prompt Engineering</h4>
+                                <span>AI Applications</span>
+                            </div>
+                        </div>
+                        <div class="cert-card glass">
+                            <i class="fa-solid fa-certificate cert-icon"></i>
+                            <div>
+                                <h4>Data Analysis with R Programming</h4>
+                                <span>Statistical Analytics</span>
+                            </div>
+                        </div>
+                        <div class="cert-card glass">
+                            <i class="fa-solid fa-certificate cert-icon"></i>
+                            <div>
+                                <h4>Data Through the Art of Visualization</h4>
+                                <span>BI &amp; Presentation</span>
+                            </div>
+                        </div>
+                        <div class="cert-card glass">
+                            <i class="fa-solid fa-certificate cert-icon"></i>
+                            <div>
+                                <h4>Process Data from Dirty to Clean</h4>
+                                <span>Data Wrangling</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Get in Touch</span>
+                <h2 class="section-title">Contact Me</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info-panel reveal">
+                    <h3 class="contact-panel-title">Let's talk about Data</h3>
+                    <p class="contact-panel-text">
+                        Have an interesting project, automation challenge, or dashboard requirement? Let's connect and discuss how I can help your team turn data into strategic action.
+                    </p>
+                    
+                    <div class="contact-details-list">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div>
+                                <h4>Email</h4>
+                                <a href="mailto:aishwaryatiwari274@gmail.com">aishwaryatiwari274@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div>
+                                <h4>Location</h4>
+                                <span>Hyderabad, India (Open to remote)</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+                            <div>
+                                <h4>LinkedIn</h4>
+                                <a href="https://linkedin.com/in/your-username" target="_blank" rel="noopener noreferrer">linkedin.com/in/your-username</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-panel glass reveal">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="form-name">Name</label>
+                                <input type="text" id="form-name" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-email">Email</label>
+                                <input type="email" id="form-email" placeholder="john@example.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-subject">Subject</label>
+                            <input type="text" id="form-subject" placeholder="Project Discussion" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-message">Message</label>
+                            <textarea id="form-message" rows="5" placeholder="Write your message here..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            Send Message <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    <div id="form-status" class="form-status hidden"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p class="copyright">&copy; 2026 Aishwarya Tiwari. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="./resume_ats.pdf" target="_blank">Resume</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Script -->
+    <script src="script.js"></script>
+</body>
+</html>
