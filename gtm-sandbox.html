@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Go-To-Market (GTM) Pipeline & Clay Enrichment Simulator - Portfolio Project by Aishwarya Tiwari">
+    <title>GTM &amp; Clay Pipeline Simulator | Aishwarya Tiwari</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-gtm.css">
+</head>
+<body class="dark-theme">
+    <!-- Navbar -->
+    <header class="navbar scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-accent">AT.</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Top Section Info -->
+    <main class="sandbox-main">
+        <div class="container">
+            <div class="sandbox-intro reveal active">
+                <span class="section-subtitle">GTM Engineering Case Study</span>
+                <h1 class="sandbox-title">Go-To-Market &amp; Clay Enrichment Simulator</h1>
+                <p class="sandbox-lead">
+                    An interactive, end-to-end sandbox demonstrating data layer instrumentation, Google Tag Manager orchestration, lead enrichment via **Clay.com**, HubSpot CRM syncs, and real-time Growth Analytics.
+                </p>
+                <div class="sandbox-instructions">
+                    <p><strong>How to test:</strong> Click the buttons in the <strong>SaaS Simulator (Step 1)</strong> to trigger user actions. Watch the data stream through the tracking layers, trigger Clay's lookup APIs, and feed the metrics dashboard automatically!</p>
+                </div>
+            </div>
+
+            <!-- Main Work Grid -->
+            <div class="sandbox-grid">
+                <!-- PANEL 1: SaaS Product Simulator -->
+                <div class="panel-card glass reveal active">
+                    <div class="panel-header">
+                        <div class="panel-number">1</div>
+                        <h3>SaaS Simulator (SaaSFlow Inc.)</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p class="panel-desc">Simulate visitor behaviors on a live SaaS product landing page and checkout checkout flow.</p>
+                        
+                        <div class="mock-browser">
+                            <div class="browser-header">
+                                <div class="browser-dots">
+                                    <span class="dot red"></span>
+                                    <span class="dot yellow"></span>
+                                    <span class="dot green"></span>
+                                </div>
+                                <div class="browser-url">https://saasflow.io</div>
+                            </div>
+                            
+                            <div class="browser-content">
+                                <div class="sf-hero">
+                                    <h4 class="sf-logo">SaaSFlow</h4>
+                                    <p class="sf-tagline">Automate your business workflows in minutes.</p>
+                                    
+                                    <!-- Dynamic Action Form -->
+                                    <div class="sf-lead-box" id="sf-form-container">
+                                        <div class="input-row">
+                                            <input type="email" id="sf-email" placeholder="enter-email@company.com" value="aishwarya.tiwari@google.com">
+                                            <button id="btn-signup" class="btn sf-btn sf-btn-primary">Sign Up <i class="fa-solid fa-paper-plane"></i></button>
+                                        </div>
+                                        <span class="helper-text">Try editing the email domain (e.g. microsoft.com, netflix.com) to see Clay enrich differently!</span>
+                                    </div>
+                                    
+                                    <!-- Next Stages Buttons -->
+                                    <div class="sf-stages-flow hidden" id="sf-stages-container">
+                                        <div class="active-user-badge">
+                                            <i class="fa-solid fa-circle-user"></i> <span id="current-user-email">aishwarya.tiwari@google.com</span>
+                                        </div>
+                                        <div class="stages-grid">
+                                            <button id="btn-trial" class="btn sf-btn sf-btn-secondary">
+                                                <i class="fa-solid fa-play"></i> Start Free Trial
+                                            </button>
+                                            <button id="btn-upgrade" class="btn sf-btn sf-btn-upgrade">
+                                                <i class="fa-solid fa-gem"></i> Upgrade to Premium ($79/mo)
+                                            </button>
+                                        </div>
+                                        <button id="btn-reset-simulator" class="sf-reset-link">
+                                            <i class="fa-solid fa-arrow-rotate-left"></i> Reset User Session
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="sf-stats-teaser">
+                                    <span>⭐️ Rated 4.9/5 by Growth Teams</span>
+                                    <span>🔒 Enterprise Secure</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Button Trigger for Pageview -->
+                        <button id="btn-pageview" class="btn btn-secondary btn-full-width">
+                            <i class="fa-solid fa-eye"></i> Trigger Landing Page View (Event)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PANEL 2: GTM Tracking & CDP Pipeline -->
+                <div class="panel-card glass reveal active">
+                    <div class="panel-header">
+                        <div class="panel-number">2</div>
+                        <h3>GTM &amp; Clay Pipeline Inspector</h3>
+                    </div>
+                    <div class="panel-body flex-grow">
+                        <!-- Pipeline Steps -->
+                        <div class="pipeline-track">
+                            <!-- Step A: Data Layer -->
+                            <div class="pipeline-node active" id="node-datalayer">
+                                <div class="node-title"><i class="fa-solid fa-code"></i> Data Layer Push</div>
+                                <pre class="code-box language-json"><code id="code-datalayer">{
+  "status": "Awaiting simulated user action..."
+}</code></pre>
+                            </div>
+                            
+                            <!-- Step B: GTM Tags -->
+                            <div class="pipeline-node" id="node-gtm">
+                                <div class="node-title"><i class="fa-solid fa-tags"></i> Google Tag Manager (Tag Orchestration)</div>
+                                <div class="tags-fired-container" id="gtm-tags-box">
+                                    <div class="tag-status awaiting">Awaiting GTM event...</div>
+                                </div>
+                            </div>
+
+                            <!-- Step C: Clay Lead Enrichment -->
+                            <div class="pipeline-node" id="node-clay">
+                                <div class="node-title">
+                                    <i class="fa-solid fa-cube"></i> Clay.com Lead Enrichment API
+                                    <span class="loading-spinner hidden" id="clay-spinner"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                                </div>
+                                <div class="clay-output-box">
+                                    <div id="clay-awaiting" class="tag-status awaiting">Awaiting signup to query Clay...</div>
+                                    <div id="clay-results" class="clay-table hidden">
+                                        <table>
+                                            <tbody>
+                                                <tr><td><strong>Full Name</strong></td><td id="clay-name">-</td></tr>
+                                                <tr><td><strong>Job Title</strong></td><td id="clay-title">-</td></tr>
+                                                <tr><td><strong>Company</strong></td><td id="clay-company">-</td></tr>
+                                                <tr><td><strong>Industry</strong></td><td id="clay-industry">-</td></tr>
+                                                <tr><td><strong>Size</strong></td><td id="clay-size">-</td></tr>
+                                                <tr><td><strong>LinkedIn</strong></td><td id="clay-linkedin">-</td></tr>
+                                                <tr><td><strong>Enriched Via</strong></td><td><span class="provider-pill">Clearbit</span> <span class="provider-pill">LinkedIn Scraping</span></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step D: CRM Webhook Sync -->
+                            <div class="pipeline-node" id="node-crm">
+                                <div class="node-title"><i class="fa-solid fa-database"></i> CRM Sync (HubSpot Contact Payload)</div>
+                                <pre class="code-box language-json"><code id="code-crm">{
+  "status": "Awaiting enriched profile..."
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 2: Growth Metrics Dashboard & Code Library -->
+            <div class="sandbox-grid mt-4">
+                <!-- PANEL 3: Real-Time Growth Dashboard -->
+                <div class="panel-card glass reveal active">
+                    <div class="panel-header">
+                        <div class="panel-number">3</div>
+                        <h3>Real-Time Growth Analytics Dashboard</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p class="panel-desc">Calculated in real time based on active and aggregated simulated user actions.</p>
+                        
+                        <!-- Dashboard KPIs -->
+                        <div class="dashboard-kpis">
+                            <div class="kpi-box">
+                                <span class="kpi-val" id="kpi-visitors">0</span>
+                                <span class="kpi-lbl">Total Visitors</span>
+                            </div>
+                            <div class="kpi-box">
+                                <span class="kpi-val" id="kpi-leads">0</span>
+                                <span class="kpi-lbl">Leads (Signups)</span>
+                            </div>
+                            <div class="kpi-box">
+                                <span class="kpi-val" id="kpi-mrr">$0</span>
+                                <span class="kpi-lbl">Simulated MRR</span>
+                            </div>
+                            <div class="kpi-box">
+                                <span class="kpi-val" id="kpi-conversion">0%</span>
+                                <span class="kpi-lbl">Signup-to-Paid %</span>
+                            </div>
+                        </div>
+
+                        <!-- Funnel Chart Visual -->
+                        <div class="funnel-container">
+                            <h4 class="funnel-title">Active Acquisition Funnel</h4>
+                            <div class="funnel-bar-wrapper">
+                                <div class="funnel-bar-label">Visitors</div>
+                                <div class="funnel-bar-bg"><div class="funnel-bar-fill fill-visitors" id="f-visitors" style="width: 100%;"></div></div>
+                                <div class="funnel-bar-val" id="fv-visitors">0</div>
+                            </div>
+                            <div class="funnel-bar-wrapper">
+                                <div class="funnel-bar-label">Leads</div>
+                                <div class="funnel-bar-bg"><div class="funnel-bar-fill fill-leads" id="f-leads" style="width: 0%;"></div></div>
+                                <div class="funnel-bar-val" id="fv-leads">0</div>
+                            </div>
+                            <div class="funnel-bar-wrapper">
+                                <div class="funnel-bar-label">Trials</div>
+                                <div class="funnel-bar-bg"><div class="funnel-bar-fill fill-trials" id="f-trials" style="width: 0%;"></div></div>
+                                <div class="funnel-bar-val" id="fv-trials">0</div>
+                            </div>
+                            <div class="funnel-bar-wrapper">
+                                <div class="funnel-bar-label">Paid</div>
+                                <div class="funnel-bar-bg"><div class="funnel-bar-fill fill-paid" id="f-paid" style="width: 0%;"></div></div>
+                                <div class="funnel-bar-val" id="fv-paid">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL 4: GTM Production Code Library -->
+                <div class="panel-card glass reveal active">
+                    <div class="panel-header">
+                        <div class="panel-number">4</div>
+                        <h3>Production Code Library</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p class="panel-desc">Real-world code configurations that a GTM Engineer writes to power this pipeline.</p>
+                        
+                        <div class="code-tabs">
+                            <button class="tab-btn active" data-tab="dbt">dbt (SQL)</button>
+                            <button class="tab-btn" data-tab="python">Python (Enrichment Webhook)</button>
+                            <button class="tab-btn" data-tab="gtm-code">GTM Tag (JS)</button>
+                        </div>
+                        
+                        <div class="tab-contents">
+                            <!-- dbt Tab -->
+                            <div class="tab-pane active" id="tab-dbt">
+                                <pre class="code-box language-sql"><code>-- dbt model: marts/growth/fct_gtm_funnel_conversion.sql
+WITH events AS (
+    SELECT * FROM {{ ref('stg_segment_events') }}
+),
+enriched_leads AS (
+    SELECT * FROM {{ ref('stg_clay_enriched_leads') }}
+)
+SELECT 
+    DATE_TRUNC(e.timestamp, DAY) AS event_date,
+    COUNT(DISTINCT CASE WHEN e.event_name = 'Pageview' THEN e.anonymous_id END) AS visitors,
+    COUNT(DISTINCT CASE WHEN e.event_name = 'Signup' THEN e.user_id END) AS signups,
+    COUNT(DISTINCT el.email) AS enriched_leads,
+    COUNT(DISTINCT CASE WHEN e.event_name = 'Upgrade' THEN e.user_id END) AS conversions,
+    SAFE_DIVIDE(
+        COUNT(DISTINCT CASE WHEN e.event_name = 'Upgrade' THEN e.user_id END),
+        COUNT(DISTINCT CASE WHEN e.event_name = 'Signup' THEN e.user_id END)
+    ) * 100 AS conversion_rate
+FROM events e
+LEFT JOIN enriched_leads el ON e.user_id = el.user_id
+GROUP BY 1
+ORDER BY 1 DESC;</code></pre>
+                            </div>
+
+                            <!-- Python Tab -->
+                            <div class="tab-pane" id="tab-python">
+                                <pre class="code-box language-python"><code># Python Serverless function: gtm-webhooks/enrich_lead.py
+import requests
+import json
+import os
+
+CLAY_API_KEY = os.environ.get("CLAY_API_KEY")
+HUBSPOT_API_KEY = os.environ.get("HUBSPOT_API_KEY")
+
+def handler(request):
+    """
+    Called by GTM / Segment webhook on signup.
+    Forwards email to Clay for enrichment, then updates HubSpot CRM.
+    """
+    request_json = request.get_json(silent=True)
+    if not request_json or "email" not in request_json:
+        return {"status": "error", "message": "Email is required"}, 400
+        
+    email = request_json["email"]
+    
+    # 1. Trigger Clay.com Lead Enrichment Workflow
+    clay_url = "https://api.clay.run/v3/workflows/enrich-lead"
+    headers = {"Authorization": f"Bearer {CLAY_API_KEY}", "Content-Type": "application/json"}
+    clay_payload = {"email": email}
+    
+    clay_response = requests.post(clay_url, json=clay_payload, headers=headers)
+    enriched_data = clay_response.json()
+    
+    # 2. Map enriched attributes to HubSpot schema
+    hubspot_payload = {
+        "properties": {
+            "email": email,
+            "firstname": enriched_data.get("first_name"),
+            "lastname": enriched_data.get("last_name"),
+            "jobtitle": enriched_data.get("job_title"),
+            "company": enriched_data.get("company_name"),
+            "linkedin_profile": enriched_data.get("linkedin_url"),
+            "company_size": enriched_data.get("company_size"),
+            "lead_score": enriched_data.get("lead_score")
+        }
+    }
+    
+    # 3. Write data to HubSpot
+    hs_url = "https://api.hubapi.com/crm/v3/objects/contacts"
+    hs_headers = {"Authorization": f"Bearer {HUBSPOT_API_KEY}", "Content-Type": "application/json"}
+    requests.post(hs_url, json=hubspot_payload, headers=hs_headers)
+    
+    return {"status": "success", "message": "Lead enriched and CRM synced"}, 200</code></pre>
+                            </div>
+
+                            <!-- GTM Tab -->
+                            <div class="tab-pane" id="tab-gtm-code">
+                                <pre class="code-box language-javascript"><code>// GTM Custom JavaScript Variable: Get Lead Company Domain
+function() {
+  // Extract domain from lead email stored in Data Layer
+  var email = google_tag_manager["GTM-XXXX"].macro('dL - User Email');
+  if (email &amp;&amp; email.indexOf('@') !== -1) {
+    var parts = email.split('@');
+    if (parts.length === 2) {
+      var domain = parts[1].toLowerCase();
+      // Exclude generic public mail domains
+      var freeDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com"];
+      if (freeDomains.indexOf(domain) === -1) {
+        return domain;
+      }
+    }
+  }
+  return null;
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p class="copyright">&copy; 2026 Aishwarya Tiwari. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Portfolio Home</a>
+                <a href="index.html#projects">More Projects</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script-gtm.js"></script>
+</body>
+</html>

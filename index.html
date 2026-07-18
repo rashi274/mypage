@@ -318,6 +318,7 @@
             <!-- Project Filters -->
             <div class="project-filters reveal">
                 <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="gtm">GTM &amp; Clay</button>
                 <button class="filter-btn" data-filter="python">Python</button>
                 <button class="filter-btn" data-filter="sql">SQL</button>
                 <button class="filter-btn" data-filter="tableau">Tableau / Excel</button>
@@ -326,7 +327,31 @@
 
             <!-- Projects Grid -->
             <div class="projects-grid">
-                <!-- Project 1 -->
+                <!-- Project 1 (GTM & Clay Sandbox) -->
+                <div class="project-card glass reveal" data-tags="gtm python sql">
+                    <div class="project-media">
+                        <div class="project-overlay">
+                            <span class="project-icon"><i class="fa-solid fa-rocket"></i></span>
+                        </div>
+                        <div class="project-media-placeholder" style="background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);">
+                            <span>GTM &amp; Clay Simulator</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag">GTM Engineering</span>
+                            <span class="tag">Clay Enrichment</span>
+                            <span class="tag">APIs &amp; Webhooks</span>
+                        </div>
+                        <h3 class="project-title">GTM Pipeline &amp; Clay Enrichment Simulator</h3>
+                        <p class="project-description">
+                            An interactive web sandbox displaying data layer triggers, GTM tag orchestration, real-time lead enrichment via Clay API lookups, and HubSpot CRM updates.
+                        </p>
+                        <a href="gtm-sandbox.html" class="btn btn-secondary" style="margin-top: auto; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.85rem; width: fit-content;">Open Simulator <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
                 <div class="project-card glass reveal" data-tags="python tableau">
                     <div class="project-media">
                         <div class="project-overlay">
