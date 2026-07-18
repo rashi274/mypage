@@ -66,10 +66,17 @@
                                 <div class="browser-url">https://saasflow.io</div>
                             </div>
                             
+                            <!-- Variant Selector -->
+                            <div class="variant-selector-bar">
+                                <span class="vs-label">Active A/B Test Variant:</span>
+                                <button id="btn-variant-a" class="vs-btn active">Variant A (Control)</button>
+                                <button id="btn-variant-b" class="vs-btn">Variant B (Treatment)</button>
+                            </div>
+                            
                             <div class="browser-content">
                                 <div class="sf-hero">
                                     <h4 class="sf-logo">SaaSFlow</h4>
-                                    <p class="sf-tagline">Automate your business workflows in minutes.</p>
+                                    <p class="sf-tagline" id="sf-tagline">Automate your business workflows in minutes.</p>
                                     
                                     <!-- Dynamic Action Form -->
                                     <div class="sf-lead-box" id="sf-form-container">
@@ -229,6 +236,53 @@
                                 <div class="funnel-bar-val" id="fv-paid">0</div>
                             </div>
                         </div>
+
+                        <!-- A/B Test Split Visual Chart -->
+                        <div class="ab-report-container">
+                            <h4 class="funnel-title">A/B Test Variant Conversion Chart</h4>
+                            
+                            <div class="comparison-visuals">
+                                <div class="variant-chart-row">
+                                    <div class="variant-name">A (Control)</div>
+                                    <div class="variant-bar-bg">
+                                        <div class="variant-bar-fill fill-variant-a" id="ab-bar-a" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="variant-metrics" id="ab-metrics-a">0% (0 / 0)</div>
+                                </div>
+                                <div class="variant-chart-row">
+                                    <div class="variant-name">B (Treatment)</div>
+                                    <div class="variant-bar-bg">
+                                        <div class="variant-bar-fill fill-variant-b" id="ab-bar-b" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="variant-metrics" id="ab-metrics-b">0% (0 / 0)</div>
+                                </div>
+                            </div>
+
+                            <!-- Live Statistical Z-Test Significance Verdict -->
+                            <div class="verdict-card glass" id="ab-verdict-card">
+                                <div class="verdict-header">
+                                    <span class="verdict-title"><i class="fa-solid fa-calculator"></i> Real-Time Statistical Z-Test Engine</span>
+                                    <span class="verdict-badge neutral" id="verdict-status-badge">Awaiting Data</span>
+                                </div>
+                                <div class="verdict-body">
+                                    <div class="verdict-stat-row">
+                                        <span>Conversion Lift:</span>
+                                        <strong id="verdict-lift">+0.0%</strong>
+                                    </div>
+                                    <div class="verdict-stat-row">
+                                        <span>Z-Score:</span>
+                                        <strong id="verdict-zscore">0.000</strong>
+                                    </div>
+                                    <div class="verdict-stat-row">
+                                        <span>P-Value:</span>
+                                        <strong id="verdict-pvalue">1.000</strong>
+                                    </div>
+                                    <div class="verdict-explanation" id="verdict-text">
+                                        Please simulate signups and upgrades for both Variant A and Variant B. To run a significance test, we need at least 1 signup and 1 conversion for each variant.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -250,7 +304,7 @@
                         <div class="tab-contents">
                             <!-- dbt Tab -->
                             <div class="tab-pane active" id="tab-dbt">
-                                <pre class="code-box language-sql"><code>-- dbt model: marts/growth/fct_gtm_funnel_conversion.sql
+                                <pre class="code-box language-sql"><code>-- dbt model: marts/growth/fct_gtm_ab_test_significance.sql
 WITH events AS (
     SELECT * FROM {{ ref('stg_segment_events') }}
 ),
@@ -258,19 +312,25 @@ enriched_leads AS (
     SELECT * FROM {{ ref('stg_clay_enriched_leads') }}
 )
 SELECT 
-    DATE_TRUNC(e.timestamp, DAY) AS event_date,
-    COUNT(DISTINCT CASE WHEN e.event_name = 'Pageview' THEN e.anonymous_id END) AS visitors,
-    COUNT(DISTINCT CASE WHEN e.event_name = 'Signup' THEN e.user_id END) AS signups,
-    COUNT(DISTINCT el.email) AS enriched_leads,
-    COUNT(DISTINCT CASE WHEN e.event_name = 'Upgrade' THEN e.user_id END) AS conversions,
+    -- Group by variant parameter tracked in GTM Data Layer
+    e.context_ab_test_variant AS ab_variant,
+    COUNT(DISTINCT e.anonymous_id) AS total_visitors,
+    COUNT(DISTINCT CASE WHEN e.event_name = 'Signup' THEN e.user_id END) AS total_leads,
+    COUNT(DISTINCT CASE WHEN e.event_name = 'Upgrade' THEN e.user_id END) AS total_paid_customers,
+    
+    -- Conversion rates per variant
     SAFE_DIVIDE(
         COUNT(DISTINCT CASE WHEN e.event_name = 'Upgrade' THEN e.user_id END),
-        COUNT(DISTINCT CASE WHEN e.event_name = 'Signup' THEN e.user_id END)
-    ) * 100 AS conversion_rate
+        COUNT(DISTINCT e.anonymous_id)
+    ) * 100 AS visitor_to_paid_rate,
+    
+    -- CRM Deal metrics
+    SUM(CASE WHEN e.event_name = 'Upgrade' THEN 79.00 ELSE 0 END) AS total_revenue
 FROM events e
 LEFT JOIN enriched_leads el ON e.user_id = el.user_id
+WHERE e.context_ab_test_variant IS NOT NULL
 GROUP BY 1
-ORDER BY 1 DESC;</code></pre>
+ORDER BY 1;</code></pre>
                             </div>
 
                             <!-- Python Tab -->

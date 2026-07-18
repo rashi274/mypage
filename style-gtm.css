@@ -621,6 +621,189 @@
     color: var(--text-primary);
 }
 
+/* A/B Testing Styles */
+.variant-selector-bar {
+    background: #111827;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.6rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.85rem;
+}
+
+.vs-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.vs-btn {
+    background: #080c14;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.35rem 0.85rem;
+    border-radius: 4px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: var(--transition-fast);
+}
+
+.vs-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--text-muted);
+}
+
+.vs-btn.active {
+    background: rgba(6, 182, 212, 0.1);
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.2);
+}
+
+.ab-report-container {
+    margin-top: 2rem;
+    background: rgba(255,255,255,0.01);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.75rem;
+}
+
+.comparison-visuals {
+    margin-bottom: 2rem;
+}
+
+.variant-chart-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.variant-name {
+    width: 90px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.variant-bar-bg {
+    flex-grow: 1;
+    height: 18px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.variant-bar-fill {
+    height: 100%;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fill-variant-a {
+    background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+.fill-variant-b {
+    background: linear-gradient(90deg, #a855f7 0%, #d946ef 100%);
+}
+
+.variant-metrics {
+    width: 120px;
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Z-Test Verdict Card */
+.verdict-card {
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.verdict-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.verdict-title {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.verdict-title i {
+    color: var(--accent-primary);
+}
+
+.verdict-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.verdict-badge.neutral {
+    background: rgba(107, 114, 128, 0.1);
+    color: #9ca3af;
+    border: 1px solid rgba(107, 114, 128, 0.2);
+}
+
+.verdict-badge.significant {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    animation: pulseGlow 2s infinite;
+}
+
+.verdict-badge.not-significant {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
+    50% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.5); }
+}
+
+.verdict-stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.verdict-stat-row span {
+    color: var(--text-secondary);
+}
+
+.verdict-stat-row strong {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-primary);
+}
+
+.verdict-explanation {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--border-color);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
 /* ==========================================================================
    Code Library Tabs
    ========================================================================== */

@@ -1,14 +1,22 @@
 /**
  * Go-To-Market (GTM) & Clay Pipeline Simulator Logic
+ * Integrated A/B Testing & Z-Test Statistical significance Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Session State Metrics (Cumulative)
-    let cumulativeVisitors = 0;
-    let cumulativeLeads = 0;
-    let cumulativeTrials = 0;
-    let cumulativePaid = 0;
-    let cumulativeMRR = 0;
+    // Current Active Variant ('A' = Control, 'B' = Treatment)
+    let activeVariant = 'A';
+
+    // Variant Metrics (Tracked Independently)
+    let visitorsA = 0;
+    let leadsA = 0;
+    let trialsA = 0;
+    let paidA = 0;
+
+    let visitorsB = 0;
+    let leadsB = 0;
+    let trialsB = 0;
+    let paidB = 0;
 
     // Active User Context
     let currentEmail = '';
@@ -18,7 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let userHasTrialed = false;
     let userHasUpgraded = false;
 
-    // DOM Elements
+    // DOM Elements - Mock Browser & Variant Switcher
+    const btnVariantA = document.getElementById('btn-variant-a');
+    const btnVariantB = document.getElementById('btn-variant-b');
+    const sfTagline = document.getElementById('sf-tagline');
+
+    // DOM Elements - Action Buttons
     const btnPageview = document.getElementById('btn-pageview');
     const btnSignup = document.getElementById('btn-signup');
     const btnTrial = document.getElementById('btn-trial');
@@ -30,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sfStagesContainer = document.getElementById('sf-stages-container');
     const currentUserEmailSpan = document.getElementById('current-user-email');
 
-    // Pipeline Nodes & Boxes
+    // Pipeline Nodes & Code Blocks
     const nodeDatalayer = document.getElementById('node-datalayer');
     const codeDatalayer = document.getElementById('code-datalayer');
     
@@ -45,13 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const nodeCrm = document.getElementById('node-crm');
     const codeCrm = document.getElementById('code-crm');
 
-    // Dashboard widgets
+    // Dashboard Widgets (Cumulative)
     const kpiVisitors = document.getElementById('kpi-visitors');
     const kpiLeads = document.getElementById('kpi-leads');
     const kpiMrr = document.getElementById('kpi-mrr');
     const kpiConversion = document.getElementById('kpi-conversion');
 
-    // Funnel bars & values
+    // Funnel Bars
     const fVisitors = document.getElementById('f-visitors');
     const fLeads = document.getElementById('f-leads');
     const fTrials = document.getElementById('f-trials');
@@ -62,10 +75,136 @@ document.addEventListener('DOMContentLoaded', () => {
     const fvTrials = document.getElementById('fv-trials');
     const fvPaid = document.getElementById('fv-paid');
 
+    // A/B Test Visual Chart Elements
+    const abBarA = document.getElementById('ab-bar-a');
+    const abBarB = document.getElementById('ab-bar-b');
+    const abMetricsA = document.getElementById('ab-metrics-a');
+    const abMetricsB = document.getElementById('ab-metrics-b');
+
+    // Z-Test Verdict Card Elements
+    const abVerdictCard = document.getElementById('ab-verdict-card');
+    const verdictStatusBadge = document.getElementById('verdict-status-badge');
+    const verdictLift = document.getElementById('verdict-lift');
+    const verdictZscore = document.getElementById('verdict-zscore');
+    const verdictPvalue = document.getElementById('verdict-pvalue');
+    const verdictText = document.getElementById('verdict-text');
+
     /* ==========================================================================
-       Dashboard Rendering & Calculations
+       A/B Variant Switcher Logic
+       ========================================================================== */
+    btnVariantA.addEventListener('click', () => {
+        if (userHasSignedUp && !userHasUpgraded) {
+            alert("Please reset or finish the current user session before changing variations.");
+            return;
+        }
+        activeVariant = 'A';
+        btnVariantA.classList.add('active');
+        btnVariantB.classList.remove('active');
+        sfTagline.textContent = "Automate your business workflows in minutes.";
+        resetUserSessionState();
+    });
+
+    btnVariantB.addEventListener('click', () => {
+        if (userHasSignedUp && !userHasUpgraded) {
+            alert("Please reset or finish the current user session before changing variations.");
+            return;
+        }
+        activeVariant = 'B';
+        btnVariantB.classList.add('active');
+        btnVariantA.classList.remove('active');
+        sfTagline.textContent = "Double your workflow productivity in 7 days or your money back! 🚀";
+        resetUserSessionState();
+    });
+
+    /* ==========================================================================
+       Z-Test Statistical Significance Engine (Data Analyst Core)
+       ========================================================================== */
+    function getPValue(z) {
+        // Standard normal cumulative distribution function (two-tailed approximation)
+        z = Math.abs(z);
+        const t = 1 / (1 + 0.2316419 * z);
+        const d = 0.3989423 * Math.exp(-z * z / 2);
+        const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+        return Math.max(0, Math.min(1, 2 * p));
+    }
+
+    function calculateABTestSignificance() {
+        const convRateA = visitorsA > 0 ? paidA / visitorsA : 0;
+        const convRateB = visitorsB > 0 ? paidB / visitorsB : 0;
+
+        // Visual charts rendering (percentage of bar width)
+        const pctA = Math.round(convRateA * 100);
+        const pctB = Math.round(convRateB * 100);
+        abBarA.style.width = `${pctA}%`;
+        abBarB.style.width = `${pctB}%`;
+        abMetricsA.textContent = `${pctA}% (${paidA} / ${visitorsA})`;
+        abMetricsB.textContent = `${pctB}% (${paidB} / ${visitorsB})`;
+
+        // Check if we have sufficient samples to run a Z-Test
+        if (visitorsA < 2 || visitorsB < 2 || (paidA === 0 && paidB === 0)) {
+            verdictStatusBadge.textContent = "Awaiting Data";
+            verdictStatusBadge.className = "verdict-badge neutral";
+            verdictLift.textContent = "+0.0%";
+            verdictZscore.textContent = "0.000";
+            verdictPvalue.textContent = "1.000";
+            verdictText.textContent = "Awaiting data. Please register at least 2 visitors and 1 conversion for both Variant A and Variant B to compute statistical significance.";
+            return;
+        }
+
+        // 1. Calculate Lift
+        let lift = 0;
+        if (convRateA > 0) {
+            lift = ((convRateB - convRateA) / convRateA) * 100;
+        } else if (convRateB > 0) {
+            lift = 100.0; // B has conversions but A has none
+        }
+
+        verdictLift.textContent = `${lift >= 0 ? '+' : ''}${lift.toFixed(1)}%`;
+
+        // 2. Run Z-Test calculations
+        const totalConversions = paidA + paidB;
+        const totalVisitors = visitorsA + visitorsB;
+        const pooledRate = totalConversions / totalVisitors;
+
+        const se = Math.sqrt(pooledRate * (1 - pooledRate) * ((1 / visitorsA) + (1 / visitorsB)));
+        
+        let zScore = 0;
+        if (se > 0) {
+            zScore = (convRateB - convRateA) / se;
+        }
+
+        verdictZscore.textContent = zScore.toFixed(3);
+
+        // 3. Find P-Value
+        const pValue = getPValue(zScore);
+        verdictPvalue.textContent = pValue.toFixed(4);
+
+        // 4. Update UI Verdict Box based on Confidence level
+        if (pValue < 0.05 && lift > 0) {
+            verdictStatusBadge.textContent = "Significant";
+            verdictStatusBadge.className = "verdict-badge significant";
+            verdictText.innerHTML = `<strong>Success!</strong> The Treatment (Variant B) has achieved statistical significance (p = ${pValue.toFixed(4)} < 0.05). We are over 95% confident that the copy lift is real and not due to random chance. <span style="color:#10b981">Recommend deploying Variant B permanently.</span>`;
+        } else if (pValue < 0.05 && lift < 0) {
+            verdictStatusBadge.textContent = "Significant";
+            verdictStatusBadge.className = "verdict-badge not-significant";
+            verdictText.innerHTML = `<strong>Warning!</strong> Variant B (Treatment) performed significantly worse than Variant A (p = ${pValue.toFixed(4)} < 0.05). <span style="color:#ef4444">Recommend keeping Variant A (Control).</span>`;
+        } else {
+            verdictStatusBadge.textContent = "Not Significant";
+            verdictStatusBadge.className = "verdict-badge neutral";
+            verdictText.innerHTML = `No statistically significant difference detected (p = ${pValue.toFixed(4)} >= 0.05). The conversion lift of ${lift.toFixed(1)}% could be due to random chance. Continue running the test to accumulate more visitor sessions.`;
+        }
+    }
+
+    /* ==========================================================================
+       Dashboard Rendering & Cumulative Metrics
        ========================================================================== */
     function updateDashboard() {
+        const cumulativeVisitors = visitorsA + visitorsB;
+        const cumulativeLeads = leadsA + leadsB;
+        const cumulativePaid = paidA + paidB;
+        const cumulativeMRR = cumulativePaid * 79;
+        const cumulativeTrials = trialsA + trialsB;
+
         kpiVisitors.textContent = cumulativeVisitors;
         kpiLeads.textContent = cumulativeLeads;
         kpiMrr.textContent = `$${cumulativeMRR}`;
@@ -73,13 +212,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const conversion = cumulativeLeads > 0 ? Math.round((cumulativePaid / cumulativeLeads) * 100) : 0;
         kpiConversion.textContent = `${conversion}%`;
 
-        // Update funnel counts
+        // Update Funnel counts
         fvVisitors.textContent = cumulativeVisitors;
         fvLeads.textContent = cumulativeLeads;
         fvTrials.textContent = cumulativeTrials;
         fvPaid.textContent = cumulativePaid;
 
-        // Calculate and update funnel fills (percentages of total visitors)
+        // Calculate visual funnel widths
         if (cumulativeVisitors > 0) {
             fVisitors.style.width = '100%';
             fLeads.style.width = `${(cumulativeLeads / cumulativeVisitors) * 100}%`;
@@ -91,6 +230,9 @@ document.addEventListener('DOMContentLoaded', () => {
             fTrials.style.width = '0%';
             fPaid.style.width = '0%';
         }
+
+        // Run A/B statistical checks
+        calculateABTestSignificance();
     }
 
     /* ==========================================================================
@@ -124,25 +266,43 @@ document.addEventListener('DOMContentLoaded', () => {
         codeCrm.textContent = JSON.stringify({ "status": "Awaiting enriched profile..." }, null, 2);
     }
 
+    function resetUserSessionState() {
+        userHasViewedPage = false;
+        userHasSignedUp = false;
+        userHasTrialed = false;
+        userHasUpgraded = false;
+        
+        // Reset Browser form elements
+        inputEmail.value = 'aishwarya.tiwari@google.com';
+        sfStagesContainer.classList.add('hidden');
+        sfFormContainer.classList.remove('hidden');
+        
+        resetPipelineDisplay();
+    }
+
     /* ==========================================================================
        SIMULATOR TRIGGER: Pageview
        ========================================================================== */
     btnPageview.addEventListener('click', () => {
         if (!userHasViewedPage) {
-            cumulativeVisitors++;
+            if (activeVariant === 'A') visitorsA++;
+            else visitorsB++;
             userHasViewedPage = true;
         }
         
         updateDashboard();
         resetPipelineDisplay();
 
-        // 1. Data Layer Push
+        // 1. Data Layer Push (with A/B Test context)
         nodeDatalayer.classList.add('active');
         const dlPayload = {
             "event": "page_view",
             "page_path": "/",
-            "page_title": "SaaSFlow Landing Page",
-            "anonymous_id": "anon_usr_8f430a"
+            "page_title": activeVariant === 'A' ? "SaaSFlow Landing Page (Control)" : "SaaSFlow Landing Page (Treatment)",
+            "anonymous_id": "anon_usr_8f430a",
+            "context": {
+                "ab_test_variant": activeVariant === 'A' ? "variant_a" : "variant_b"
+            }
         };
         codeDatalayer.textContent = JSON.stringify(dlPayload, null, 2);
 
@@ -170,12 +330,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Ensure visitor count is updated if they skipped pageview button
         if (!userHasViewedPage) {
-            cumulativeVisitors++;
+            if (activeVariant === 'A') visitorsA++;
+            else visitorsB++;
             userHasViewedPage = true;
         }
         
         if (!userHasSignedUp) {
-            cumulativeLeads++;
+            if (activeVariant === 'A') leadsA++;
+            else leadsB++;
             userHasSignedUp = true;
         }
 
@@ -193,7 +355,10 @@ document.addEventListener('DOMContentLoaded', () => {
             "event": "lead_signup",
             "user_id": currentUserId,
             "email": currentEmail,
-            "signup_method": "direct_form"
+            "signup_method": "direct_form",
+            "context": {
+                "ab_test_variant": activeVariant === 'A' ? "variant_a" : "variant_b"
+            }
         };
         codeDatalayer.textContent = JSON.stringify(dlPayload, null, 2);
 
@@ -304,7 +469,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         "company_size": enrichedProfile.size,
                         "lead_source": "SaaSFlow Live Simulator",
                         "enriched_via_clay": "true",
-                        "lead_score": "85"
+                        "lead_score": "85",
+                        "ab_test_variant": activeVariant === 'A' ? "variant_a" : "variant_b"
                     }
                 }
             };
@@ -323,7 +489,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!userHasTrialed) {
-            cumulativeTrials++;
+            if (activeVariant === 'A') trialsA++;
+            else trialsB++;
             userHasTrialed = true;
         }
 
@@ -339,7 +506,10 @@ document.addEventListener('DOMContentLoaded', () => {
             "user_id": currentUserId,
             "email": currentEmail,
             "trial_plan": "Enterprise Free Trial",
-            "trial_duration_days": 14
+            "trial_duration_days": 14,
+            "context": {
+                "ab_test_variant": activeVariant === 'A' ? "variant_a" : "variant_b"
+            }
         };
         codeDatalayer.textContent = JSON.stringify(dlPayload, null, 2);
 
@@ -360,12 +530,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!userHasUpgraded) {
-            cumulativePaid++;
-            cumulativeMRR += 79;
+            if (activeVariant === 'A') paidA++;
+            else paidB++;
             userHasUpgraded = true;
+            
             // Force trial if they bypassed the trial button
             if (!userHasTrialed) {
-                cumulativeTrials++;
+                if (activeVariant === 'A') trialsA++;
+                else trialsB++;
                 userHasTrialed = true;
             }
         }
@@ -384,6 +556,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 "plan_name": "Premium Pro Plan",
                 "monthly_value": 79.00,
                 "currency": "USD"
+            },
+            "context": {
+                "ab_test_variant": activeVariant === 'A' ? "variant_a" : "variant_b"
             }
         };
         codeDatalayer.textContent = JSON.stringify(dlPayload, null, 2);
@@ -400,23 +575,11 @@ document.addEventListener('DOMContentLoaded', () => {
        RESET SIMULATOR SESSION
        ========================================================================== */
     btnReset.addEventListener('click', () => {
-        currentEmail = '';
-        currentUserId = '';
-        userHasViewedPage = false;
-        userHasSignedUp = false;
-        userHasTrialed = false;
-        userHasUpgraded = false;
-        
-        // Reset Browser form elements
-        inputEmail.value = 'aishwarya.tiwari@google.com';
-        sfStagesContainer.classList.add('hidden');
-        sfFormContainer.classList.remove('hidden');
-        
-        resetPipelineDisplay();
+        resetUserSessionState();
     });
 
     /* ==========================================================================
-       Code Library Library Toggling
+       Code Library Toggling
        ========================================================================== */
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabPanes = document.querySelectorAll('.tab-pane');
