@@ -1,6 +1,6 @@
 # Aishwarya Tiwari
 **Data Analyst & Go-To-Market (GTM) Engineer**  
-Hyderabad, India | aishwaryatiwari274@gmail.com | [LinkedIn](https://linkedin.com/in/your-username) | [Portfolio Site](https://rashi274.github.io/mypage/)
+Hyderabad, India | aishwaryatiwari274@gmail.com | [LinkedIn](https://www.linkedin.com/in/aishwarya-tiwari-67422b147/) | [Portfolio Site](https://rashi274.github.io/mypage/)
 
 ---
 

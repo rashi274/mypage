@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     company: "Google",
                     industry: "Artificial Intelligence & Cloud",
                     size: "100,000+ employees",
-                    linkedin: "linkedin.com/in/your-username"
+                    linkedin: "linkedin.com/in/aishwarya-tiwari-67422b147"
                 };
             } else if (domain.includes('microsoft')) {
                 enrichedProfile = {
