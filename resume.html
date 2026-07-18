@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aishwarya Tiwari - Resume</title>
+    
+    <!-- Google Fonts for typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* General Document Styles */
+        :root {
+            --color-text-dark: #0f172a;
+            --color-text-light: #475569;
+            --color-accent: #0f766e; /* Professional Teal */
+            --color-line: #cbd5e1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--color-text-dark);
+            background-color: #ffffff;
+            line-height: 1.4;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 10.5pt;
+        }
+
+        /* Print Specific CSS */
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+                font-size: 9.5pt;
+                color: #000000;
+            }
+            @page {
+                size: letter;
+                margin: 0.6in 0.5in 0.6in 0.5in;
+            }
+            .no-print {
+                display: none;
+            }
+            a {
+                text-decoration: none;
+                color: #000000;
+            }
+            /* Avoid page breaks inside sections */
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Screen Only helper bar */
+        .no-print-bar {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .no-print-bar button {
+            background: var(--color-accent);
+            color: #ffffff;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 1rem;
+            font-family: inherit;
+        }
+
+        /* Header Layout */
+        .header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .name {
+            font-size: 24pt;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--color-text-dark);
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+        }
+        
+        .title {
+            font-size: 12pt;
+            font-weight: 600;
+            color: var(--color-accent);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-info {
+            font-size: 9pt;
+            color: var(--color-text-light);
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-info span {
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .contact-info a {
+            color: var(--color-text-light);
+            text-decoration: none;
+        }
+        
+        .contact-info a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Horizontal Divider */
+        hr {
+            border: none;
+            border-top: 1.5px solid var(--color-accent);
+            margin: 1rem 0;
+        }
+
+        /* Section Layout */
+        .section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 11pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--color-line);
+            padding-bottom: 2px;
+        }
+
+        .summary-text {
+            color: var(--color-text-light);
+            text-align: justify;
+        }
+
+        /* Skills Layout */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem 1.5rem;
+        }
+        
+        .skill-item {
+            font-size: 9.5pt;
+            margin-bottom: 0.25rem;
+            color: var(--color-text-light);
+        }
+        
+        .skill-item strong {
+            color: var(--color-text-dark);
+        }
+
+        /* Experience & Project Cards */
+        .item-card {
+            margin-bottom: 1rem;
+        }
+        
+        .item-card:last-child {
+            margin-bottom: 0;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .item-role {
+            font-size: 10.5pt;
+            color: var(--color-text-dark);
+        }
+        
+        .item-meta {
+            font-size: 9.5pt;
+            color: var(--color-text-light);
+            font-weight: 500;
+            text-align: right;
+        }
+        
+        .item-company {
+            font-size: 10pt;
+            font-weight: 600;
+            color: var(--color-text-light);
+            margin-bottom: 0.35rem;
+        }
+        
+        .item-bullets {
+            margin-left: 1.25rem;
+            color: var(--color-text-light);
+            font-size: 9.5pt;
+        }
+        
+        .item-bullets li {
+            margin-bottom: 0.25rem;
+            text-align: justify;
+        }
+
+        /* Project specific styling */
+        .project-title-line {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            margin-bottom: 0.25rem;
+        }
+        
+        .project-tech {
+            font-size: 8.5pt;
+            font-weight: 600;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.35rem;
+        }
+
+        .certifications-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.25rem 1.5rem;
+            list-style-type: none;
+            font-size: 9.5pt;
+            color: var(--color-text-light);
+        }
+        
+        .certifications-list li::before {
+            content: "• ";
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Instructions banner only visible on screen, hidden when printing -->
+    <div class="no-print-bar no-print">
+        <span>📄 This page is print-optimized. Click Print to save it as a professional PDF.</span>
+        <button onclick="window.print()">Print to PDF</button>
+    </div>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1 class="name">Aishwarya Tiwari</h1>
+        <div class="title">Data Analyst &amp; Go-To-Market (GTM) Engineer</div>
+        <div class="contact-info">
+            <span>Hyderabad, India</span>
+            <span>|</span>
+            <span><a href="mailto:aishwaryatiwari274@gmail.com">aishwaryatiwari274@gmail.com</a></span>
+            <span>|</span>
+            <span><a href="https://linkedin.com/in/your-username" target="_blank">linkedin.com/in/your-username</a></span>
+            <span>|</span>
+            <span><a href="https://rashi274.github.io/mypage/" target="_blank">rashi274.github.io/mypage</a></span>
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="section">
+        <h2 class="section-title">Professional Summary</h2>
+        <p class="summary-text">
+            Results-driven Data Analyst and GTM Engineer with experience in data cleaning, transformation, dashboard development, ETL automation, event tracking instrumentation, and business reporting across freelance and corporate environments. Skilled in Python, SQL, Tableau, Google Tag Manager (GTM), Clay.com, and CRM integrations. Proven ability to automate data pipelines, enrich lead data, run statistical significance tests, and deliver insights that support business growth and operational decision-making.
+        </p>
+    </div>
+
+    <!-- Skills -->
+    <div class="section">
+        <h2 class="section-title">Core Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-item"><strong>Tools:</strong> Python, SQL, Tableau, Power BI, Pandas, NumPy, MS Excel</div>
+            <div class="skill-item"><strong>GTM Operations:</strong> Google Tag Manager, Clay.com, Webhooks, APIs</div>
+            <div class="skill-item"><strong>Analysis &amp; A/B Testing:</strong> Statistical Analytics, A/B Testing, Z-Tests, P-Values</div>
+            <div class="skill-item"><strong>Data Operations:</strong> ETL Pipelines, Data Cleaning, Data Quality, Validation</div>
+            <div class="skill-item"><strong>Reporting:</strong> BI Dashboards, Data Visualization, Reporting Automation</div>
+            <div class="skill-item"><strong>CRM Systems:</strong> HubSpot, Salesforce Integration, Lead Scoring</div>
+        </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="section">
+        <h2 class="section-title">Professional Experience</h2>
+        
+        <!-- Job 1 -->
+        <div class="item-card">
+            <div class="item-header">
+                <span class="item-role">Freelance Data Analyst &amp; GTM Developer</span>
+                <span class="item-meta">Jan 2024 - Present | Hyderabad, India</span>
+            </div>
+            <div class="item-company">Self-Employed</div>
+            <ul class="item-bullets">
+                <li>Developed interactive BI dashboards and reports using Tableau and Power BI, translating client needs into visual solutions.</li>
+                <li>Cleaned, profiled, and validated large datasets to improve reporting accuracy and catalog governance by 30%.</li>
+                <li>Built automated ETL pipelines using Python and SQL for streamlined reporting workflows.</li>
+                <li>Instrumented event tracking (GTM, GA4) and custom lead enrichment workflows (Clay.com) to automate CRM synchronization.</li>
+            </ul>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="item-card">
+            <div class="item-header">
+                <span class="item-role">Test Engineer (Data Quality)</span>
+                <span class="item-meta">Mar 2022 - Sep 2023 | Indore, India</span>
+            </div>
+            <div class="item-company">Corporate Analytics Environment</div>
+            <ul class="item-bullets">
+                <li>Performed rigorous data cleaning and validation processes that improved product database data quality by 30%.</li>
+                <li>Conducted A/B testing and statistical analysis to evaluate feature conversion trends, contributing to a 15% rate lift.</li>
+                <li>Designed interactive, real-time Tableau dashboards to monitor metrics and support operations.</li>
+                <li>Automated recurring quality reports using Python and complex SQL queries, reducing manual reporting effort by 40%.</li>
+                <li>Collaborated with global teams in the US and China to ensure multi-region data pipeline consistency and sync accuracy.</li>
+            </ul>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="item-card">
+            <div class="item-header">
+                <span class="item-role">Assistant System Engineer</span>
+                <span class="item-meta">Sep 2021 - Mar 2022 | Gurgaon, India</span>
+            </div>
+            <div class="item-company">Technology Solutions Firm</div>
+            <ul class="item-bullets">
+                <li>Assisted with engineering data documentation, system health reporting, and issue tracking.</li>
+                <li>Analyzed technical system issues, documented resolutions, and improved technical support workflows.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="section">
+        <h2 class="section-title">Selected Projects</h2>
+
+        <!-- Project 1 -->
+        <div class="item-card">
+            <div class="project-title-line">GTM Pipeline &amp; Clay Enrichment Simulator (A/B Test Sandbox)</div>
+            <div class="project-tech">GTM, Clay.com, HubSpot API, Python, SQL/dbt, JavaScript</div>
+            <ul class="item-bullets">
+                <li>Created a live web sandbox demonstrating frontend event tracking triggers, GTM macro variables, and webhook payloads.</li>
+                <li>Built a mock enrichment flow using Clay.com APIs to scrape LinkedIn profile details and company size from email domains.</li>
+                <li>Coded a Z-test statistical significance engine in JS that calculates conversion lift and p-values based on variant inputs.</li>
+            </ul>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="item-card">
+            <div class="project-title-line">Sales Performance &amp; Trend Analysis</div>
+            <div class="project-tech">Python, Tableau, A/B Testing</div>
+            <ul class="item-bullets">
+                <li>Analyzed regional sales datasets to support recommendations that improved sales performance by 10%.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Education -->
+    <div class="section">
+        <h2 class="section-title">Education</h2>
+        <div class="item-header">
+            <span class="item-role">Bachelor of Engineering</span>
+            <span class="item-meta">Graduated: 2019</span>
+        </div>
+        <div class="item-company">Samrat Ashok Technological Institute</div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="section">
+        <h2 class="section-title">Selected Certifications</h2>
+        <ul class="certifications-list">
+            <li>Google Data Analytics Specialization</li>
+            <li>ChatGPT Advanced Data Analysis</li>
+            <li>Generative AI Prompt Engineering</li>
+            <li>Data Analysis with R Programming</li>
+            <li>Data Through the Art of Visualization</li>
+            <li>Introduction to SQL (Coursera)</li>
+        </ul>
+    </div>
+
+</body>
+</html>
