@@ -621,6 +621,55 @@
     color: var(--text-primary);
 }
 
+/* Live Webhook Integrator styling */
+.webhook-config-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+.webhook-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.05em;
+}
+
+.webhook-input {
+    width: 100%;
+    background: #080c14;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.4rem 0.75rem;
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    transition: var(--transition-fast);
+}
+
+.webhook-input:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+    box-shadow: 0 0 6px rgba(6, 182, 212, 0.15);
+}
+
+.webhook-helper {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+}
+
+.webhook-helper a {
+    color: var(--accent-primary);
+    text-decoration: underline;
+}
+
 /* A/B Testing Styles */
 .variant-selector-bar {
     background: #111827;

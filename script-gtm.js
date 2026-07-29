@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnUpgrade = document.getElementById('btn-upgrade');
     const btnReset = document.getElementById('btn-reset-simulator');
     const inputEmail = document.getElementById('sf-email');
+    const inputWebhookUrl = document.getElementById('real-webhook-url');
     
     const sfFormContainer = document.getElementById('sf-form-container');
     const sfStagesContainer = document.getElementById('sf-stages-container');
@@ -280,6 +281,33 @@ document.addEventListener('DOMContentLoaded', () => {
         resetPipelineDisplay();
     }
 
+    // Outbound real-time Webhook dispatcher
+    function sendRealWebhook(payload) {
+        if (!inputWebhookUrl) return;
+        const webhookUrl = inputWebhookUrl.value.trim();
+        if (!webhookUrl) return;
+
+        if (!webhookUrl.startsWith('http://') && !webhookUrl.startsWith('https://')) {
+            console.warn("Invalid Webhook URL. Must start with http:// or https://");
+            return;
+        }
+
+        fetch(webhookUrl, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            console.log("Real Webhook payload successfully sent to:", webhookUrl);
+        })
+        .catch(err => {
+            console.error("Real Webhook transmission failed:", err);
+        });
+    }
+
     /* ==========================================================================
        SIMULATOR TRIGGER: Pageview
        ========================================================================== */
@@ -305,6 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         codeDatalayer.textContent = JSON.stringify(dlPayload, null, 2);
+        sendRealWebhook(dlPayload);
 
         // 2. GTM Tags Fire
         fireGtmTags([
@@ -361,6 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         codeDatalayer.textContent = JSON.stringify(dlPayload, null, 2);
+        sendRealWebhook(dlPayload);
 
         // 2. GTM Tags Firing
         fireGtmTags([
@@ -475,6 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
             codeCrm.textContent = JSON.stringify(hsPayload, null, 2);
+            sendRealWebhook(hsPayload);
 
         }, 900); // Simulated delay
     });
@@ -512,6 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         codeDatalayer.textContent = JSON.stringify(dlPayload, null, 2);
+        sendRealWebhook(dlPayload);
 
         // 2. GTM Tags
         fireGtmTags([
@@ -562,6 +594,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         codeDatalayer.textContent = JSON.stringify(dlPayload, null, 2);
+        sendRealWebhook(dlPayload);
 
         // 2. GTM Tags
         fireGtmTags([
