@@ -39,6 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnReset = document.getElementById('btn-reset-simulator');
     const inputEmail = document.getElementById('sf-email');
     const inputWebhookUrl = document.getElementById('real-webhook-url');
+    const btnPlgInvite = document.getElementById('btn-plg-invite');
+    const btnPlgApi = document.getElementById('btn-plg-api');
+    const btnPlgQuota = document.getElementById('btn-plg-quota');
+    
+    let plgScore = 0;
     
     const sfFormContainer = document.getElementById('sf-form-container');
     const sfStagesContainer = document.getElementById('sf-stages-container');
@@ -272,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
         userHasSignedUp = false;
         userHasTrialed = false;
         userHasUpgraded = false;
+        plgScore = 0;
         
         // Reset Browser form elements
         inputEmail.value = 'aishwarya.tiwari@google.com';
@@ -637,6 +643,100 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // PLG Lead Scoring Event Trigger Helper
+    function getFirmographicScore(email) {
+        if (!email) return 30;
+        const domain = email.split('@')[1] || '';
+        const bigDomains = ['google.com', 'microsoft.com', 'netflix.com', 'apple.com', 'amazon.com'];
+        if (bigDomains.includes(domain.toLowerCase())) {
+            return 50; // High tier enterprise match
+        }
+        return 30; // Mid-market match
+    }
+
+    function triggerPlgEvent(action, pointsGained) {
+        if (!userHasSignedUp) {
+            alert("Please sign up first!");
+            return;
+        }
+        
+        // Accumulate scoring
+        const baseScore = getFirmographicScore(currentEmail);
+        plgScore += pointsGained;
+        const totalPqlScore = Math.min(100, baseScore + plgScore);
+
+        updateDashboard();
+        resetPipelineDisplay();
+
+        // 1. Data Layer Push
+        nodeDatalayer.classList.add('active');
+        const dlPayload = {
+            "event": "plg_usage_event",
+            "user_id": currentUserId,
+            "email": currentEmail,
+            "usage_action": action,
+            "points_gained": pointsGained,
+            "accumulated_pql_score": totalPqlScore,
+            "context": {
+                "ab_test_variant": activeVariant === 'A' ? "variant_a" : "variant_b"
+            }
+        };
+        codeDatalayer.textContent = JSON.stringify(dlPayload, null, 2);
+        sendRealWebhook(dlPayload);
+
+        // 2. GTM Tags Firing
+        fireGtmTags([
+            { name: "GA4 Custom Event: " + action, class: "ga4" },
+            { name: "PQL Lead Scoring Tag", class: "googleads" }
+        ]);
+
+        // 3. Update Clay Data Display
+        nodeClay.classList.add('active');
+        clayAwaiting.classList.add('hidden');
+        claySpinner.classList.add('hidden');
+        clayResults.classList.remove('hidden');
+        
+        document.getElementById('clay-name').textContent = currentEmail.split('@')[0].toUpperCase();
+        document.getElementById('clay-title').textContent = "PQL Lead (" + action.replace(/_/g, ' ') + ")";
+        document.getElementById('clay-company').textContent = currentEmail.split('@')[1].split('.')[0].toUpperCase();
+        document.getElementById('clay-industry').textContent = "B2B / Technology";
+        document.getElementById('clay-size').textContent = "PQL Score: " + totalPqlScore + " / 100";
+
+        // 4. Update HubSpot Deal Sync if Score is >= 70
+        if (totalPqlScore >= 70) {
+            nodeCrm.classList.add('active');
+            const hsPayload = {
+                "method": "POST",
+                "endpoint": "https://api.hubapi.com/crm/v3/objects/deals",
+                "headers": {
+                    "Authorization": "Bearer HS_PAT_XXXX",
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "properties": {
+                        "dealname": "PQL - " + currentEmail.split('@')[0] + " Deal",
+                        "dealstage": "appointmentscheduled", // Product Qualified stage
+                        "pql_score": String(totalPqlScore),
+                        "lead_email": currentEmail,
+                        "ab_test_variant": activeVariant === 'A' ? "variant_a" : "variant_b"
+                    }
+                }
+            };
+            codeCrm.textContent = JSON.stringify(hsPayload, null, 2);
+            sendRealWebhook(hsPayload);
+        }
+    }
+
+    if (btnPlgInvite) {
+        btnPlgInvite.addEventListener('click', () => triggerPlgEvent('invite_team_member', 25));
+    }
+    if (btnPlgApi) {
+        btnPlgApi.addEventListener('click', () => triggerPlgEvent('api_request', 10));
+    }
+    if (btnPlgQuota) {
+        btnPlgQuota.addEventListener('click', () => triggerPlgEvent('quota_threshold_reached', 25));
+    }
 
     // Initialize Dashboard values
     updateDashboard();
